@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    environment {
+        Version='0.0.1'
+        Mode_ENV='Dev environment.' 
+        
+    }
+    
+    
+
+    stages {
+        stage('Hello') {
+            steps {
+                git branch: 'main', url: 'https://github.com/cybr71/testcicd.git'
+                sh '''echo "The content of test.txt" 
+                cat test.txt'''
+            }
+        }
+        stage('build') {
+            steps {
+                withCredentials([string(credentialsId: 'e253e3b5-0c89-4f6a-9b89-07e83bcddd89', variable: 'secvar')]) {
+                // some block
+                echo "This is secret key variable $secvar"
+            }
+                echo " this is for $Mode_ENV and it's verion is $Version" 
+                echo "Happy Jenkins learning." 
+                sh 'npm install'
+            }
+        }
+        stage('Save artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'test.txt', followSymlinks: false
+            }
+        }
+    }
+}
+
+
