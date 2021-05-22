@@ -23,7 +23,7 @@ pipeline {
                 echo "This is secret key variable $secvar"
             }
                 echo " this is for $Mode_ENV and it's verion is $Version" 
-                echo "Happy Jenkins learning." 
+                echo "Happy Jenkins learning with Md. Saidur Rahman" 
                 sh 'npm install'
             }
         }
